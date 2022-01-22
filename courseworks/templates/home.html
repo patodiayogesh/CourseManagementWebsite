@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1> Home</h1>
+    <p> Welcome <a href={{ url_for('show_user_details', user_id=user_id) }} >{{ user_first_name }}</a></p>
+    {% if is_admin %}
+        <a class="nav-item nav-link" href="/university">University Details</a>
+        <form method="POST" action="/delete_university" >
+            <input type="submit" value="Delete University" /> 
+          </form>  <br>
+        <a class="nav-item nav-link" href="/create_course"> Create Course </a>
+        <a class="nav-item nav-link" href="/create_student"> Create Student </a>
+        <a class="nav-item nav-link" href="/create_professor"> Create Professor </a>
+        <a class="nav-item nav-link" href="/create_venue"> Create Venue </a>
+
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+             Course List
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                {% for course in courses%}
+                <a href={{ url_for('course_details', course_id=course.course_id) }}> {{course.course_name}} </a>
+            {% endfor %}            
+            </div>
+        </div>
+
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+             Student List
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample2">
+            <div class="card card-body">
+                {% for student in students%}
+                <a href={{ url_for('show_user_details', user_id=student.user_id) }}> {{student.user_first_name}} {{student.user_last_name}} {{student.user_email}} </a>
+            {% endfor %}            
+            </div>
+        </div>
+
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+             Professor List
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample3">
+            <div class="card card-body">
+                {% for professor in professors%}
+                <a href={{ url_for('show_user_details', user_id=professor.user_id) }}> {{professor.user_first_name}} {{professor.user_last_name}} {{professor.user_email}} </a>
+            {% endfor %}            
+            </div>
+        </div>
+
+        <p>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+             Venue List
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample4">
+            <div class="card card-body">
+                {% for venue in venues%}
+                    <div> {{venue.venue_building}} {{venue.venue_class_number}}     <form method="POST" action={{ url_for('delete_venue', venue_id=venue.venue_id) }} class="btn btn-outline-info">
+                        <input type="submit" value="Delete Venue" />
+                    </form> <a href= {{ url_for('update_venue', venue_id=venue.venue_id) }}> Update Venue</a>
+                    </div>
+                {% endfor %}            
+            </div>
+        </div>
+        
+    {% endif %}
+    {% if is_prof %}
+        <a class="nav-item nav-link" href="/active_courses_prof">Current Courses Professor</a>
+        <a class="nav-item nav-link" href="/inactive_courses_prof">Inactive Courses Professor</a>
+    {% endif %}
+    {% if is_student %}
+        <a class="nav-item nav-link" href="/active_courses">Current Courses</a>
+        <a class="nav-item nav-link" href="/inactive_courses">Inactive Courses</a>        
+        <a class="nav-item nav-link" href="/active_courses_ta">Current Courses TA</a>
+        <a class="nav-item nav-link" href="/inactive_courses_ta">Inactive Courses TA</a>        
+    {% endif %}
+        <div class="form-group">
+            <form method="POST" action="/logout" class="btn btn-outline-info">
+                <input type="submit" value="Logout" />
+            </form>
+        </div>
+{% endblock content %}

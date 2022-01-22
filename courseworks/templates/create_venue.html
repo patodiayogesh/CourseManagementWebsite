@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">Venue Building:</label><br>       
+        <input type="text" id="venue_building" name="venue_building"  placeholder="Venue Building" required/><br><br>
+        <label for="fname">Venue Class Number:</label><br>       
+        <input type="text" id="venue_class_number" name="venue_class_number"  placeholder="Venue Class Number" required/><br><br>
+        <input type="submit" value="Create Venue" />
+    </form>
+</div>
+<div class="form-group">
+    <form action='/home'}} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

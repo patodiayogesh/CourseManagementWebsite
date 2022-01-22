@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <div>
+        <p> Assignment Name: {{ assignment_submission_data.assignment_name }} </p>
+        <p> First Name: {{ user_details.user_first_name }} </p>
+        <p> Last Name: {{ user_details.user_last_name }} </p>
+        <p> Submission Details: {{ assignment_submission_data.submitted_material }} </p>
+        <p> Marks Obtained: {{ assignment_submission_data.marks_obtained }} </p>
+    </div>
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Assignment Details</legend>
+            <div class="form-group">
+                {{ form.marks.label(class="form-control-label") }}
+                {{ form.marks(class="form-control form-control-lg") }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>    
+    </form>
+</div>
+<div class="form-group">
+    <form action={{ url_for('assignment_details', assignment_id=assignment_submission_data.assignment_id)}} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

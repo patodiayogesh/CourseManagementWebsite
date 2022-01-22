@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1> Home</h1>
+    <p> University Name: {{ uni_info.university_name }}</p>
+    <p> University City: {{ uni_info.university_city }}</p>
+    <p> University State: {{ uni_info.university_state }}</p>
+    <p> University Address: {{ uni_info.university_address }}</p>
+    <p> University Pincode: {{ uni_info.university_pincode }}</p>
+    <p> University Date of Establishment: {{ uni_info.university_establishment_date }}</p>
+    <a class="nav-item nav-link" href="/update_university">Update University Details</a>
+    <div class="form-group">
+        <form method="GET" action="/home" class="btn btn-outline-info">
+            <input type="submit" value="Back" />
+        </form>
+    </div>
+    <div class="form-group">
+            <form method="POST" action="/logout" class="btn btn-outline-info">
+                <input type="submit" value="Logout" />
+            </form>
+        </div>
+{% endblock content %}

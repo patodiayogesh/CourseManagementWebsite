@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">Course Name:</label><br>       
+        <input type="text" id="course_name" name="course_name"  placeholder="Course Name" required/><br><br>
+        <label for="fname">User Description:</label><br>       
+        <input type="text" id="user_description" name="user_description" placeholder="User Description" required/><br><br>
+        <label for="fname">Course Credits:</label><br>       
+        <input type="number" id="course_credits" name="course_credits" placeholder="Course Credits" required/><br><br>
+        <label for="fname">IS Course Active:</label><br>       
+        <input type="checkbox" id="is_active" name="is_active" /><br><br>
+        <label for="fname">Course Year:</label><br>       
+        <input type="number" id="course_year" name="course_year" placeholder="Course Year" required/><br><br>
+        <label for="fname">Course Semester:</label><br>       
+        <input type="text" id="course_semester" name="course_semester" placeholder="Course Semester" required/><br><br>
+        <label for="fname">Venues:</label><br>       
+        {% for venue in venues %}
+        <input type="radio" id={{ venue.venue_id }} value={{ venue.venue_id }} name="venues" />
+        <label for="fname"> {{venue.venue_building}} {{venue.venue_class_number}}</label><br>       
+        {% endfor %}<br>
+        <label for="fname">Course Time Slot:</label><br>       
+        <input type="text" id="course_time_slot" name="course_time_slot" placeholder="Course Time Slot" required/><br><br>
+        <label for="fname">Is Course Online:</label><br>       
+        <input type="checkbox" id="is_course_online" name="is_course_online"/><br><br>
+        <input type="submit" value="Create Course" />
+    </form>
+</div>
+<div class="form-group">
+    <form action='/home'}} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

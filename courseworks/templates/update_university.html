@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">University City: </label><br>       
+        <input type="text" id="university_city" name="university_city"  value={{university.university_city}} required/><br><br>
+        <label for="fname">University State:</label><br>       
+        <input type="text" id="university_state" name="university_state"  value={{university.university_state}} required/><br><br>
+        <label for="fname">University Address:</label><br>       
+        <input type="text" id="university_address" name="university_address" value={{university.university_address}} required/><br><br>
+        <label for="fname">University Pincode:</label><br>       
+        <input type="number" id="university_pincode" name="university_pincode"  value={{university.university_pincode}} required/><br><br>
+        <label for="fname">University Establishment Date:</label><br>       
+        <input type="number" id="university_establishment_date" name="university_establishment_date" value={{university.university_establishment_date}} required/><br><br>
+        <input type="submit" value="Update Course" />
+    </form>
+</div>
+<div class="form-group">
+    <form action='/university' class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

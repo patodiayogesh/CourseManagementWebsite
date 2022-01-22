@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Assignment Details</h1>
+    <p>Assignment Name: {{ assignment.assignment_name }}</p>
+    <p>Assignment Posted Date: {{ assignment.assignment_posted_date }}</p>
+    <p>Assignment Due Date: {{ assignment.assignment_due_date }}</p>
+    <p>Total Marks: {{ assignment.total_marks }}</p>
+    <p>Max Marks: {{ stats.max }}</p>
+    <p>Min Marks: {{ stats.min }}</p>
+    <p>Avg Marks: {{ stats.avg }}</p>
+    {% if is_student %}
+        {% if submitted_material %}
+            <p> Submitted Material: <a href={{ submitted_material }}>
+                                    {{ submitted_material }}
+                                    </a>
+            </p>
+        {% else %}
+        <p> Submitted Material: No Material Submitted </p>
+        {% endif %}
+        {% if marks_obtained %}
+            <p> Marks Obtained: {{ marks_obtained }}</p>
+        {% endif %}
+
+        {% if form %}
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form.csrf_token }}
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">{{ legend }}</legend>
+                    <div class="form-group">
+                        {{ form.material.label(class="form-control-label") }}
+                        {% if form.material.errors %}
+                            {{ form.material(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.material.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.material(class="form-control form-control-lg") }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        {% endif %}
+    {% else %}
+    {% if is_prof %}
+        <div class="form-group">
+            <form method="POST" action= {{ url_for('delete_assignment', assignment_id=assignment_id ) }} class="btn btn-outline-info">
+                <input type="submit" value="Delete Assignment" />
+            </form>
+            <a href={{ url_for("update_assignment", assignment_id=assignment_id) }}>Update Assignment</a><br>
+        </div>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Submission Link</th>
+                <th scope="col">Marks obtained</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+            </tr>
+        </thead>
+
+        {% for submission_detail in submission_details_all %}
+        <tr>
+            <td>{{ submission_detail.submitted_material }}</td>
+            <td>{{ submission_detail.marks_obtained }}</td>
+            <td>{{ submission_detail.user_first_name }}</td>
+            <td>{{ submission_detail.user_last_name }}</td>
+            <td> <a href={{ url_for('update_assignment_marks', user_id=submission_detail.user_id) }}> Update Value</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <div class="form-group">
+        <form action='/course_details' class="btn btn-outline-info">
+            <input type="submit" value="Back" />
+        </form>
+    </div>
+    <div class="form-group">
+        <form method="POST" action="/logout" class="btn btn-outline-info">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+
+{% endblock content %}

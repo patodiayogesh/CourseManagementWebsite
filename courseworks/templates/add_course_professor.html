@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <p>Course Name: {{course_name}}</p>
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">Professors:</label><br>       
+        {% for professor in professors %}
+            <input type="checkbox" id={{ professor.user_id }} value={{ professor.user_id }} name="professors" />
+            <label for="fname"> {{professor.user_first_name}} {{professor.user_last_name}} {{professor.user_email}}</label><br>       
+        {% endfor %}
+        <input type="submit" value="Add Professor" />
+    </form>
+</div>
+<div class="form-group">
+    <form action={{ url_for('course_details', course_id=course_id) }} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

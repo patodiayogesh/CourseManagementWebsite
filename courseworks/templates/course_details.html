@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Course Details</h1>
+    <p>Course Name: {{ course_data.course_name }}</p>
+    <p>Description: {{ course_data.user_description }}</p>
+    <p>Credits: {{ course_data.course_credits }}</p>
+    <p>Is Active: {{ course_data.is_active }}</p>
+    <p>Semester: {{ course_data.course_semester }} {{ course_data.course_year }}</p>
+    <p>Time Slot: {{ course_data.course_time_slot }}</p>
+    <p>Is Course Online: {{ course_data.is_course_online }}</p>
+    {% if venue %}
+        <p>Venue: {{ venue.venue_building }} {{ venue.venue_class_number }}</p>
+    {% endif %}
+    <h2>Assignment Details</h2>
+    {% if assignment_data %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Assignment Name</th>
+                    <th scope="col">Posted On</th>
+                    <th scope="col">Due On</th>
+                    <th scope="col">Total Marks</th>
+                </tr>
+            </thead>
+
+            {% for assignment in assignment_data %}
+                <tr>
+                    <th scope="row"><a class="article-title"
+                               href={{ url_for('assignment_details',
+                               assignment_id=assignment.assignment_id) }}>
+                                {{ assignment.assignment_name }}
+                    </a></th>
+                    <td>{{ assignment.assignment_posted_date }}</td>
+                    <td>{{ assignment.assignment_due_date }}</td>
+                    <td>{{ assignment.total_marks }}</td>
+                </tr>
+
+            {% endfor %}
+        </table>
+    {% else %}
+        <p> No Assignments to show </p>
+    {% endif %}<br>
+    {% if is_admin %}
+        <a href={{ url_for("add_course_professor", course_id=course_data.course_id) }}>Add Professors</a><br>
+        <a href={{ url_for("add_course_student", course_id=course_data.course_id) }}>Add Students</a><br>
+        <a href={{ url_for("add_course_ta", course_id=course_data.course_id) }}>Add TAs</a><br>
+        <a href={{ url_for("remove_course_professor", course_id=course_data.course_id) }}>Remove Professors</a><br>
+        <a href={{ url_for("remove_course_student", course_id=course_data.course_id) }}>Remove Students</a><br>
+        <a href={{ url_for("remove_course_ta", course_id=course_data.course_id) }}>Remove TAs</a><br>
+    {% endif %}<br>
+    {% if is_prof and course_data.is_active %}
+        <div class="form-group">
+            <form action= {{ url_for('create_assignment', course_id=course_data.course_id) }} class="btn btn-outline-info">
+                <input type="submit" value="Create Assignment" />
+            </form>
+        </div>
+    {% endif %}
+    {% if is_admin %}
+        <div class="form-group">
+            <form method="POST" action= {{ url_for('delete_course', course_id=course_data.course_id ) }} class="btn btn-outline-info">
+                <input type="submit" value="Delete Course" />
+            </form>
+        </div>
+    {% endif %}
+    {% if is_admin or is_prof %}
+        <a href={{ url_for("update_course", course_id=course_data.course_id) }}>Update Course</a><br>
+    {% endif %}<br>
+    <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+         Professor List
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample1">
+        <div class="card card-body">
+            {% for det in prof_details %}
+            <a href={{ url_for('show_user_details', user_id=det.user_id) }}> {{det.user_first_name}} {{det.user_last_name}} {{det.user_email}} </a>
+            {% endfor %}            
+        </div>
+    </div>
+
+    <p>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+         TA List
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+            {% for det in ta_details %}
+            <a href={{ url_for('show_user_details', user_id=det.user_id) }}> {{det.user_first_name}} {{det.user_last_name}} {{det.user_email}} </a>
+            {% endfor %}            
+        </div>
+</div>
+
+<p>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample3">
+     Student List
+    </button>
+</p>
+<div class="collapse" id="collapseExample3">
+        <div class="card card-body">
+            {% for det in stud_details %}
+            <a href={{ url_for('show_user_details', user_id=det.user_id) }}> {{det.user_first_name}} {{det.user_last_name}} {{det.user_email}} </a>
+            {% endfor %}            
+        </div>
+</div>
+
+<div class="form-group">
+    <form action="/home" class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+        <div class="form-group">
+        <form method="POST" action="/logout" class="btn btn-outline-info">
+            <input type="submit" value="Logout" />
+        </form>
+    </div>
+{% endblock content %}

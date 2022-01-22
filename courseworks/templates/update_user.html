@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">First Name:</label><br>       
+        <input type="text" id="first_name" name="first_name"  value={{user_info.user_first_name}} required/><br><br>
+        <label for="fname">Last Name:</label><br>       
+        <input type="text" id="last_name" name="last_name"  value={{user_info.user_last_name}} required/><br><br>
+        <label for="fname">Password:</label><br>       
+        <input type="text" id="password" name="password" value={{user_info.user_password}} required/><br><br>
+        <input type="submit" value="Update User" />
+    </form>
+</div>
+<div class="form-group">
+    <form action={{ url_for('show_user_details', user_id=user_info.user_id) }} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

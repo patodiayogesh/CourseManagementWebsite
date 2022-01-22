@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method='POST' class="btn btn-outline-info">
+        <label for="fname">Assignment Name:</label><br>       
+        <input type="text" id="assignment_name" name="assignment_name"  value={{assignment.assignment_name}} required/><br><br>
+        <label for="fname">Assignment Posted Date:</label><br>       
+        <input type="date" id="assignment_posted_date" name="assignment_posted_date"  value={{assignment.assignment_posted_date}} required/><br><br>
+        <label for="fname">Assignment Due Date:</label><br>       
+        <input type="date" id="assignment_due_date" name="assignment_due_date" value={{assignment.assignment_due_date}} required/><br><br>
+        <label for="fname">Total Marks:</label><br>       
+        <input type="real" id="total_marks" name="total_marks"  value={{assignment.total_marks}} required/><br><br>
+        <input type="submit" value="Update Assignment" />
+    </form>
+</div>
+<div class="form-group">
+    <form action={{ url_for('assignment_details', assignment_id=assignment.assignment_id) }} class="btn btn-outline-info">
+        <input type="submit" value="Back" />
+    </form>
+</div>
+<div class="form-group">
+    <form method="POST" action="/logout" class="btn btn-outline-info">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+{% endblock content %}

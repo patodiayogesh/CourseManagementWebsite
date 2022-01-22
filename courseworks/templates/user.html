@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1> Home</h1>
+    <p> First Name: {{ user_info.user_first_name }}</p>
+    <p> Last Name: {{ user_info.user_last_name }}</p>
+    <p> Email: {{ user_info.user_email }}</p>
+    {% if can_update %}
+        <a href={{ url_for('update_user', user_id=user_info.user_id) }}> Update Profile </a>
+    {% endif %} <br>
+    {% if can_delete %}
+    <div class="form-group">
+        <form method="POST" action= {{ url_for('delete_user', user_id=user_info.user_id ) }} class="btn btn-outline-info">
+            <input type="submit" value="Delete User" />
+        </form>
+    </div>
+    {% endif %}
+    <div class="form-group">
+        <form method="GET" action="/home" class="btn btn-outline-info">
+            <input type="submit" value="Back" />
+        </form>
+    </div>
+    <div class="form-group">
+            <form method="POST" action="/logout" class="btn btn-outline-info">
+                <input type="submit" value="Logout" />
+            </form>
+        </div>
+{% endblock content %}

@@ -9,7 +9,7 @@ Application Description: A web-application imitating ‘Canvas’, containing de
 5. The courses taken by the student (A student can only take a course provided by it’s University)
 6. Course material, assignments, grades
 
-##Data Plan: 
+## Data Plan: 
 Scrape “http://www.columbia.edu/cu/bulletin/uwb/” to get details of courses offered by the university and details such as Professor, Venue, Time, Credits. Extract similar information from the course directory website of a total of 3 universities. Extract Student details from ‘Columbia University’ student directory. Fabricate Assignment Entity Data.
 
 ## Actions
